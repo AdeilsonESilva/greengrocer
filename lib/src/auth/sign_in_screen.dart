@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/auth/components/custom_button.dart';
+import 'package:greengrocer/src/auth/sign_up_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 import 'components/custom_text_field.dart';
@@ -96,23 +98,7 @@ class SignInScreen extends StatelessWidget {
                     ),
 
                     // Botão de entrar
-                    SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          'Entrar',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
+                    const CustomButton(text: 'Entrar'),
 
                     // Esqueceu a senha
                     Align(
@@ -166,7 +152,15 @@ class SignInScreen extends StatelessWidget {
                             color: Colors.green,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SignUpScreen();
+                              },
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Criar conta',
                           style: TextStyle(fontSize: 18),
