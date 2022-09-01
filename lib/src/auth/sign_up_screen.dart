@@ -13,7 +13,7 @@ class SignUpScreen extends StatelessWidget {
   );
 
   final phoneFormatter = MaskTextInputFormatter(
-    mask: '## # ####-####',
+    mask: '(##) #####-####',
     filter: {'#': RegExp(r'\d')},
   );
 
