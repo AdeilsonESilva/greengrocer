@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/models/order_model.dart';
+import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
+import 'package:greengrocer/src/pages/orders/components/order_status_widget.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 
 class OrderTile extends StatelessWidget {
@@ -20,6 +22,7 @@ class OrderTile extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          initiallyExpanded: order.status == 'pending_payment',
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,25 +38,79 @@ class OrderTile extends StatelessWidget {
             ],
           ),
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: 150,
+            IntrinsicHeight(
               child: Row(
                 children: [
+                  // Lista de produtos
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                      children: order.items
-                          .map((orderItem) =>
-                              _OrderItemWidget(orderItem: orderItem))
-                          .toList(),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView(
+                        children: order.items
+                            .map((orderItem) =>
+                                _OrderItemWidget(orderItem: orderItem))
+                            .toList(),
+                      ),
                     ),
                   ),
+
+                  // Divisão
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
+
+                  // Status do pedido
                   Expanded(
                     flex: 2,
-                    child: Container(color: Colors.blue),
+                    child: OrderStatusWidget(
+                      status: order.status,
+                      isOverdue: order.overdueDateTime.isBefore(DateTime.now()),
+                    ),
                   ),
                 ],
+              ),
+            ),
+
+            // Total
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(fontSize: 20),
+                children: [
+                  const TextSpan(
+                    text: 'Total ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: UtilsServices.priceToCurrency(order.total))
+                ],
+              ),
+            ),
+
+            // Botão pagamento
+            Visibility(
+              visible: order.status == 'pending_payment',
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return PaymentDialog(
+                        order: order,
+                      );
+                    },
+                  );
+                },
+                icon: Image.asset('assets/app_images/pix.png', height: 18),
+                label: const Text('Ver QR Code Pix'),
               ),
             ),
           ],
