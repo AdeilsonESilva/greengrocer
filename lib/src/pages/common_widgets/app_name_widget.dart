@@ -27,7 +27,7 @@ class AppNameWidget extends StatelessWidget {
           TextSpan(
             text: 'grocer',
             style: TextStyle(
-              color: CustomColors.customContrastColors,
+              color: CustomColors.customContrastColor,
             ),
           ),
         ],

@@ -54,7 +54,7 @@ class _HomeTabState extends State<HomeTab> {
             child: GestureDetector(
               onTap: () {},
               child: Badge(
-                  badgeColor: CustomColors.customContrastColors,
+                  badgeColor: CustomColors.customContrastColor,
                   badgeContent: const Text(
                     '2',
                     style: TextStyle(color: Colors.white, fontSize: 12),
@@ -98,7 +98,7 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: CustomColors.customContrastColors,
+                    color: CustomColors.customContrastColor,
                     size: 21,
                   ),
                   border: OutlineInputBorder(
