@@ -20,7 +20,7 @@ class PaymentDialog extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Conteudo
+          // Conteúdo
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -72,10 +72,10 @@ class PaymentDialog extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {},
-                  icon: Icon(Icons.copy),
+                  icon: const Icon(Icons.copy),
                   label: const Text(
                     'Copiar código Pix',
-                    style: const TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 13),
                   ),
                 ),
               ],
