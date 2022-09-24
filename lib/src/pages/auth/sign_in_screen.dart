@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greengrocer/src/page_router/app_pages.dart';
 import 'package:greengrocer/src/pages/auth/components/custom_button.dart';
-import 'package:greengrocer/src/pages/auth/sign_up_screen.dart';
-import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 
@@ -86,14 +86,11 @@ class SignInScreen extends StatelessWidget {
 
                     // Botão de entrar
                     CustomButton(
-                        text: 'Entrar',
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const BaseScreen(),
-                            ),
-                          );
-                        }),
+                      text: 'Entrar',
+                      onPressed: () {
+                        Get.offNamed(PagesRoutes.baseRoute);
+                      },
+                    ),
 
                     // Esqueceu a senha
                     Align(
@@ -148,13 +145,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return SignUpScreen();
-                              },
-                            ),
-                          );
+                          Get.offNamed(PagesRoutes.signUpRoute);
                         },
                         child: const Text(
                           'Criar conta',
