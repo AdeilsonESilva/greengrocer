@@ -2,8 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/page_router/app_pages.dart';
-import 'package:greengrocer/src/pages/auth/components/custom_button.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 
 import '../common_widgets/custom_text_field.dart';
@@ -115,20 +115,46 @@ class SignInScreen extends StatelessWidget {
                       ),
 
                       // Botão de entrar
-                      CustomButton(
-                        text: 'Entrar',
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            String email = emailController.text;
-                            String password = passwordController.text;
+                      SizedBox(
+                        height: 50,
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
 
-                            print(email);
-                            print(password);
-                          } else {
-                            print('form nok');
-                          }
-                          // Get.offNamed(PagesRoutes.baseRoute);
-                        },
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = emailController.text;
+                                        String password =
+                                            passwordController.text;
+
+                                        authController.signIn(
+                                          email: email,
+                                          password: password,
+                                        );
+                                      } else {
+                                        print('form nok');
+                                      }
+                                      // Get.offNamed(PagesRoutes.baseRoute);
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                            );
+                          },
+                        ),
                       ),
 
                       // Esqueceu a senha
