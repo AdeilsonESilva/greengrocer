@@ -6,7 +6,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:greengrocer/src/pages/home/components/category_tile.dart';
-import 'package:greengrocer/src/config/app_data.dart' as appData;
+import 'package:greengrocer/src/config/app_data.dart' as app_data;
 import 'package:greengrocer/src/pages/home/components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -136,16 +136,16 @@ class _HomeTabState extends State<HomeTab> {
                         return CategoryTile(
                           onPressed: () {
                             setState(() {
-                              selectedCategory = appData.categories[index];
+                              selectedCategory = app_data.categories[index];
                             });
                           },
-                          category: appData.categories[index],
+                          category: app_data.categories[index],
                           isSelected:
-                              appData.categories[index] == selectedCategory,
+                              app_data.categories[index] == selectedCategory,
                         );
                       },
                       separatorBuilder: (_, index) => const SizedBox(width: 10),
-                      itemCount: appData.categories.length,
+                      itemCount: app_data.categories.length,
                     )
                   : ListView(
                       scrollDirection: Axis.horizontal,
@@ -177,10 +177,10 @@ class _HomeTabState extends State<HomeTab> {
                         crossAxisSpacing: 10,
                         childAspectRatio: 9 / 11.5,
                       ),
-                      itemCount: appData.items.length,
+                      itemCount: app_data.items.length,
                       itemBuilder: (_, index) {
                         return ItemTile(
-                          item: appData.items[index],
+                          item: app_data.items[index],
                           cartAnimationMethod: itemSelectedCartAnimation,
                         );
                       },
