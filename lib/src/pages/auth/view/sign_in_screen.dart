@@ -121,10 +121,7 @@ class SignInScreen extends StatelessWidget {
                                           email: email,
                                           password: password,
                                         );
-                                      } else {
-                                        print('form nok');
                                       }
-                                      // Get.offNamed(PagesRoutes.baseRoute);
                                     },
                               child: authController.isLoading.value
                                   ? const CircularProgressIndicator()

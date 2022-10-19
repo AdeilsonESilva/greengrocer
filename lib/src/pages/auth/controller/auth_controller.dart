@@ -84,4 +84,28 @@ class AuthController extends GetxController {
       },
     );
   }
+
+  Future<void> signUp() async {
+    isLoading.value = true;
+
+    AuthResult result = await authRepository.signUp(user);
+
+    isLoading.value = false;
+
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        Get.snackbar(
+          'Erro',
+          message,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: CustomColors.customContrastColor,
+          colorText: Colors.white,
+        );
+      },
+    );
+  }
 }
